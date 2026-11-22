@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#262626" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Mess Coupon — LPU Touch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-app: #F1F1F1;
+      --bar-dark: #282828;
+      --pass-bar: #2C2C2C;
+      --pass-sheet-bg: #E5E5E5;
+      --grad-lpu: linear-gradient(90deg, #F37D66 0%, #F5A366 52%, #F1CF66 100%);
+      --text-main: #181818;
+      --text-soft: #2B2B2B;
+      --maroon-border: #8A3333;
+      --star-gold: #F3C447;
+      --green-approved: #56B722;
+      --green-accepted: #0F9A2F;
+      --brown-frame: #753F20;
+      --font-main: "Plus Jakarta Sans", "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #161616;
+      font-family: var(--font-main);
+      color: var(--text-main);
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Mobile-first shell centered cleanly on desktop, full-bleed on mobile */
+    .app-shell {
+      position: relative;
+      width: 100%;
+      max-width: 430px;
+      height: 100dvh;
+      margin: 0 auto;
+      background-color: var(--bg-app);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.45);
+    }
+
+    @media (max-width: 480px) {
+      html, body {
+        background-color: var(--bg-app);
+      }
+      .app-shell {
+        max-width: 100%;
+        box-shadow: none;
+      }
+    }
+
+    /* ==================== TOP APP BAR (SCREEN 1) ==================== */
+    .top-bar {
+      background-color: var(--bar-dark);
+      color: #FFFFFF;
+      min-height: 52px;
+      padding: calc(env(safe-area-inset-top, 0px) + 10px) 12px 11px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+
+    .top-bar-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: none;
+      border: none;
+      color: #FFFFFF;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 400;
+      cursor: pointer;
+      padding: 4px 2px;
+      justify-self: start;
+    }
+
+    .top-bar-left svg {
+      width: 20px;
+      height: 20px;
+      stroke: #FFFFFF;
+      stroke-width: 2.2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .top-bar-title {
+      font-size: 16.5px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #FFFFFF;
+      text-align: center;
+      cursor: default;
+      padding: 4px 8px;
+    }
+
+    .top-bar-right {
+      justify-self: end;
+      background: none;
+      border: none;
+      color: #FFFFFF;
+      font-family: inherit;
+      font-size: 14.5px;
+      font-weight: 400;
+      cursor: pointer;
+      padding: 4px 2px;
+      white-space: nowrap;
+    }
+
+    .top-bar-left:active,
+    .top-bar-right:active {
+      opacity: 0.6;
+    }
+
+    /* ==================== SCREEN 1 CONTENT ==================== */
+    .home-scroll {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 12px 11px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Student Profile Card (Video Default Vertical Layout) */
+    .profile-card {
+      background: var(--grad-lpu);
+      border-radius: 6px;
+      padding: 16px 18px 18px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+      color: var(--text-main);
+    }
+
+    .profile-top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .profile-photo-wrap {
+      width: 104px;
+      height: 104px;
+      border-radius: 3px;
+      overflow: hidden;
+      background-color: #FFFFFF;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14);
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    .profile-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-name-id {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #1A1A1A;
+      letter-spacing: -0.01em;
+    }
+
+    .profile-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .profile-field-label {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #242424;
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }
+
+    .profile-field-value {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #141414;
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    /* Middle White Action Card */
+    .action-card {
+      background: #FFFFFF;
+      border-radius: 6px;
+      padding: 24px 18px 28px;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .action-heading {
+      font-size: 18.5px;
+      font-weight: 500;
+      color: #1B1B1B;
+      line-height: 1.38;
+      letter-spacing: -0.015em;
+    }
+
+    /* Shared Rate Us Pill Badge */
+    .rate-us-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #FFFFFF;
+      border: 1.5px solid var(--maroon-border);
+      border-radius: 7px;
+      padding: 4px 12px 4px 10px;
+      margin: 12px auto 22px;
+      cursor: pointer;
+      transition: transform 0.12s ease, background-color 0.12s ease;
+    }
+
+    .rate-us-pill:active {
+      transform: scale(0.96);
+      background-color: #FAF3F3;
+    }
+
+    .rate-us-star {
+      width: 15px;
+      height: 15px;
+      fill: var(--star-gold);
+      flex-shrink: 0;
+    }
+
+    .rate-us-text {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #222222;
+      letter-spacing: 0.02em;
+    }
+
+    /* 2x2 Meal Grid */
+    .meal-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px 12px;
+    }
+
+    .meal-btn {
+      background: var(--grad-lpu);
+      border: none;
+      border-radius: 6px;
+      height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      color: #161616;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.17);
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+    }
+
+    .meal-btn:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+      filter: brightness(0.96);
+    }
+
+    .meal-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: #1A1A1A;
+      stroke-width: 1.9;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ==================== SCREEN 2: CAMERA QR SCANNER (VIDEO SHEET) ==================== */
+    .scanner-sheet {
+      position: absolute;
+      inset: 0;
+      z-index: 40;
+      background: #0B0B0B;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(102%);
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+      border-radius: 14px 14px 0 0;
+      overflow: hidden;
+    }
+
+    .scanner-sheet.open {
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .scanner-viewport {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #141210;
+    }
+
+    #cameraVideo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      display: none;
+    }
+
+    /* Realistic dark camera fallback when camera permission is denied / desktop */
+    .camera-fallback {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        radial-gradient(circle at 50% 44%, rgba(168, 152, 128, 0.24) 0%, rgba(56, 48, 40, 0.55) 45%, rgba(16, 15, 14, 0.96) 100%),
+        linear-gradient(155deg, #2B251F 0%, #191614 55%, #0D0C0B 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .fallback-poster {
+      width: 225px;
+      padding: 20px 18px;
+      background: rgba(235, 228, 214, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      text-align: center;
+      color: rgba(245, 238, 224, 0.34);
+      filter: blur(0.6px);
+      animation: handDrift 2.4s ease-in-out infinite alternate;
+    }
+
+    .fallback-poster-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+      font-family: Georgia, serif;
+    }
+
+    .fallback-poster-qr {
+      width: 118px;
+      height: 118px;
+      margin: 0 auto 12px;
+      opacity: 0.38;
+    }
+
+    .fallback-poster-note {
+      font-size: 9.5px;
+      line-height: 1.35;
+      opacity: 0.7;
+    }
+
+    @keyframes handDrift {
+      0%   { transform: translate(-8px, 6px) rotate(-1.2deg) scale(0.97); }
+      50%  { transform: translate(3px, -3px) rotate(0.4deg) scale(1.01); }
+      100% { transform: translate(0px, 0px) rotate(0deg) scale(1.03); }
+    }
+
+    /* Subtle dark camera overlay vignette */
+    .scanner-vignette {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: radial-gradient(circle at 50% 47%, transparent 32%, rgba(0, 0, 0, 0.36) 100%);
+      pointer-events: none;
+    }
+
+    /* Exact Video Solid Green Square + Centered Red Scan Line */
+    .scanner-frame-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 36px;
+      pointer-events: none;
+    }
+
+    .scanner-green-box {
+      position: relative;
+      width: min(72vw, 272px);
+      height: min(72vw, 272px);
+      border: 3.5px solid #35E626;
+      box-shadow: 0 0 8px rgba(53, 230, 38, 0.32), inset 0 0 8px rgba(53, 230, 38, 0.14);
+    }
+
+    .scanner-red-line {
+      position: absolute;
+      left: 2px;
+      right: 2px;
+      top: 50%;
+      height: 3.5px;
+      transform: translateY(-50%);
+      background: linear-gradient(90deg, rgba(229, 57, 53, 0.85) 0%, #FF3B30 50%, rgba(229, 57, 53, 0.85) 100%);
+      box-shadow: 0 0 8px rgba(255, 59, 48, 0.75);
+      animation: laserPulse 1.1s ease-in-out infinite;
+    }
+
+    @keyframes laserPulse {
+      0%, 100% { opacity: 0.92; transform: translateY(-50%) scaleY(1); }
+      50%      { opacity: 0.55; transform: translateY(-50%) scaleY(0.85); }
+    }
+
+    /* Bottom-center circular close button (matches video exactly) */
+    .scanner-close-btn {
+      position: absolute;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 26px);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(118, 118, 118, 0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.32);
+    }
+
+    .scanner-close-btn:active {
+      transform: translateX(-50%) scale(0.92);
+    }
+
+    .scanner-close-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: #FFFFFF;
+      stroke-width: 2.6;
+      stroke-linecap: round;
+    }
+
+    /* ==================== LPU SPINNING ORANGE LOADER OVERLAY ==================== */
+    .lpu-loader-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 65;
+      background: rgba(0, 0, 0, 0.36);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.16s ease;
+    }
+
+    .lpu-loader-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lpu-spinner-badge {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      padding: 4px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.32);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lpu-spinner-svg {
+      width: 100%;
+      height: 100%;
+      animation: lpuSpin 0.85s linear infinite;
+    }
+
+    @keyframes lpuSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* ==================== SCREEN 3: MESS PASS (EXACT VIDEO & SCREENSHOT) ==================== */
+    .pass-modal {
+      position: absolute;
+      inset: 0;
+      z-index: 50;
+      background: var(--pass-sheet-bg);
+      display: flex;
+      flex-direction: column;
+      transform: translateY(102%);
+      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+
+    .pass-modal.open {
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .pass-header {
+      background: var(--pass-bar);
+      color: #E2E2E2;
+      padding: calc(env(safe-area-inset-top, 0px) + 6px) 14px 11px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .pass-drag-pill {
+      width: 36px;
+      height: 4px;
+      border-radius: 99px;
+      background: #9B9B9B;
+      margin-bottom: 8px;
+    }
+
+    .pass-header-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-height: 24px;
+    }
+
+    .pass-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #E2E2E2;
+      letter-spacing: 0.005em;
+    }
+
+    .pass-close-btn {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .pass-close-btn svg {
+      width: 19px;
+      height: 19px;
+      stroke: #E8E8E8;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+    }
+
+    .pass-close-btn:active {
+      opacity: 0.6;
+    }
+
+    .pass-body {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 16px 8px 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pass-card {
+      position: relative;
+      flex: 1;
+      background: #FFFFFF;
+      border: 1.5px solid #BDBDBD;
+      border-bottom: none;
+      border-radius: 14px 14px 0 0;
+      display: flex;
+      flex-direction: column;
+      padding-top: 26px;
+    }
+
+    /* Overlapping Top-Right Circular Countdown Badge */
+    .countdown-badge {
+      position: absolute;
+      top: -14px;
+      right: -2px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #B8B8B8;
+      border: 2px solid #D4D4D4;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 500;
+      color: #1F1F1F;
+      z-index: 6;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Two Framed Squares + Two Columns Below */
+    .pass-top-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 0 14px;
+      align-items: start;
+    }
+
+    .pass-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .framed-square {
+      width: min(35vw, 134px);
+      height: min(35vw, 134px);
+      background: #FFFFFF;
+      border: 1px solid #4A4A4A;
+      padding: 7px;
+      box-shadow: 0 5px 11px rgba(0, 0, 0, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 13px;
+    }
+
+    .framed-square img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .framed-square canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      image-rendering: pixelated;
+    }
+
+    .pass-col-primary {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111111;
+      line-height: 1.3;
+      margin-bottom: 5px;
+    }
+
+    .pass-col-secondary {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #111111;
+      line-height: 1.35;
+      max-width: 148px;
+    }
+
+    /* Centered Program & Assigned Mess Lines */
+    .pass-center-info {
+      text-align: center;
+      padding: 20px 14px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .pass-info-line {
+      font-size: 14.5px;
+      font-weight: 500;
+      color: #1A1A1A;
+      letter-spacing: -0.005em;
+    }
+
+    /* Live Date & Time Row */
+    .pass-datetime-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 26px 0;
+      font-size: 16.5px;
+      font-weight: 500;
+      color: #181818;
+      letter-spacing: -0.01em;
+    }
+
+    /* Meal Approved + Rate Us */
+    .pass-status-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 22px 14px 12px;
+    }
+
+    .meal-approved-text {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--green-approved);
+      letter-spacing: -0.015em;
+      line-height: 1.2;
+    }
+
+    .pass-status-block .rate-us-pill {
+      margin: 8px auto 2px;
+      padding: 3px 10px 3px 9px;
+      border-radius: 6px;
+    }
+
+    /* Bottom Brown Frame & Morphing ACCEPTED Stamp (EXACT VIDEO ANIMATION) */
+    .accepted-brown-frame {
+      margin-top: auto;
+      width: 100%;
+      flex: 1;
+      min-height: 155px;
+      background: var(--brown-frame);
+      padding: 16px 16px 16px;
+      display: flex;
+    }
+
+    .accepted-white-inner {
+      flex: 1;
+      background-color: #FAFAFB;
+      background-image: radial-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 0);
+      background-size: 8px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 12px;
+    }
+
+    /* Morphing Pill Container (3.0s loop matching 00:13.25 - 00:16.25 in video) */
+    .accepted-morph-pill {
+      position: relative;
+      width: 38px;
+      height: 38px;
+      border: 2.8px solid #1C1C1C;
+      border-radius: 999px;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 0;
+      animation: none;
+    }
+
+    .pass-modal.open .accepted-morph-pill {
+      animation: morphPillWidth 3.0s cubic-bezier(0.38, 0.02, 0.24, 1) infinite;
+    }
+
+    .accepted-inner-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      white-space: nowrap;
+      padding: 0;
+    }
+
+    .accepted-check-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--green-accepted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transform: scale(0);
+    }
+
+    .pass-modal.open .accepted-check-circle {
+      animation: morphGreenDot 3.0s cubic-bezier(0.38, 0.02, 0.24, 1) infinite;
+    }
+
+    .accepted-check-circle svg {
+      width: 22px;
+      height: 22px;
+      stroke: #FFFFFF;
+      stroke-width: 3.4;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0;
+    }
+
+    .pass-modal.open .accepted-check-circle svg {
+      animation: morphCheckStroke 3.0s ease infinite;
+    }
+
+    .accepted-word {
+      font-size: 25px;
+      font-weight: 800;
+      color: var(--green-accepted);
+      letter-spacing: 0.015em;
+      line-height: 1;
+      max-width: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    .pass-modal.open .accepted-word {
+      animation: morphWordReveal 3.0s cubic-bezier(0.38, 0.02, 0.24, 1) infinite;
+    }
+
+    @keyframes morphPillWidth {
+      0%, 6% {
+        width: 38px;
+        height: 38px;
+        padding: 0;
+      }
+      14% {
+        width: 44px;
+        height: 44px;
+        padding: 0;
+      }
+      25%, 80% {
+        width: 242px;
+        height: 54px;
+        padding: 0 14px 0 9px;
+      }
+      91%, 100% {
+        width: 38px;
+        height: 38px;
+        padding: 0;
+      }
+    }
+
+    @keyframes morphGreenDot {
+      0%, 5% {
+        transform: scale(0);
+      }
+      13% {
+        transform: scale(0.76);
+      }
+      24%, 80% {
+        transform: scale(1);
+      }
+      90%, 100% {
+        transform: scale(0);
+      }
+    }
+
+    @keyframes morphCheckStroke {
+      0%, 17% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      25%, 79% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      86%, 100% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+    }
+
+    @keyframes morphWordReveal {
+      0%, 15% {
+        max-width: 0;
+        opacity: 0;
+        margin-left: -10px;
+      }
+      26%, 79% {
+        max-width: 175px;
+        opacity: 1;
+        margin-left: 0;
+      }
+      88%, 100% {
+        max-width: 0;
+        opacity: 0;
+        margin-left: -10px;
+      }
+    }
+
+    /* ==================== HIDDEN EDITOR MODAL & AUXILIARY MODALS ==================== */
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: 90;
+      background: rgba(0, 0, 0, 0.62);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .editor-dialog {
+      width: 100%;
+      max-height: 88dvh;
+      background: #FFFFFF;
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.36);
+    }
+
+    .editor-header {
+      background: #282828;
+      color: #FFFFFF;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .editor-header h3 {
+      font-size: 15.5px;
+      font-weight: 700;
+    }
+
+    .editor-close {
+      background: none;
+      border: none;
+      color: #FFFFFF;
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 2px 6px;
+    }
+
+    .editor-body {
+      padding: 14px 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .editor-photo-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #EBEBEB;
+    }
+
+    .editor-photo-preview {
+      width: 64px;
+      height: 64px;
+      border-radius: 6px;
+      object-fit: cover;
+      border: 1px solid #D0D0D0;
+      background: #F5F5F5;
+      flex-shrink: 0;
+    }
+
+    .upload-label-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #282828;
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .upload-hint {
+      font-size: 11.5px;
+      color: #666666;
+      margin-top: 4px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #444444;
+    }
+
+    .form-group input[type="text"] {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1.5px solid #D4D4D4;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13.5px;
+      color: #181818;
+      outline: none;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    .form-group input[type="text"]:focus {
+      border-color: #F37D66;
+    }
+
+    .editor-footer {
+      padding: 12px 16px;
+      border-top: 1px solid #EAEAEA;
+      display: flex;
+      gap: 10px;
+      background: #FAFAFA;
+    }
+
+    .btn-secondary, .btn-primary {
+      flex: 1;
+      height: 40px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-secondary {
+      background: #E6E6E6;
+      color: #222222;
+    }
+
+    .btn-primary {
+      background: var(--grad-lpu);
+      color: #141414;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.14);
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: rgba(34, 34, 34, 0.92);
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 9px 16px;
+      border-radius: 99px;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* History List inside History Modal */
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      border: 1px solid #EAEAEA;
+      border-radius: 8px;
+      background: #FAFAFA;
+    }
+
+    .history-meal {
+      font-size: 14px;
+      font-weight: 700;
+      color: #181818;
+    }
+
+    .history-meta {
+      font-size: 12px;
+      color: #555555;
+      margin-top: 2px;
+    }
+
+    .history-badge {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--green-accepted);
+      background: #E8F8EC;
+      padding: 4px 9px;
+      border-radius: 99px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- ==================== SCREEN 1: HOME ("Mess Coupon") ==================== -->
+    <header class="top-bar">
+      <button type="button" class="top-bar-left" id="backBtn" aria-label="Back">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        <span>Back</span>
+      </button>
+      <div class="top-bar-title" id="headerTitle">Mess Coupon</div>
+      <button type="button" class="top-bar-right" id="historyBtn">Meal History</button>
+    </header>
+
+    <main class="home-scroll">
+      <!-- Top Student Profile Card (Video Default Layout) -->
+      <section class="profile-card" aria-label="Student Profile">
+        <div class="profile-top">
+          <div class="profile-photo-wrap" id="homePhotoWrap" title="Student Photo">
+            <img id="homePhotoImg" alt="Student Portrait" />
+          </div>
+          <div class="profile-name-id" id="homeNameId"></div>
+        </div>
+
+        <div class="profile-fields">
+          <div>
+            <div class="profile-field-label">Father's Name</div>
+            <div class="profile-field-value" id="homeFather"></div>
+          </div>
+          <div>
+            <div class="profile-field-label">Mother's Name</div>
+            <div class="profile-field-value" id="homeMother"></div>
+          </div>
+          <div>
+            <div class="profile-field-label">Program Name</div>
+            <div class="profile-field-value" id="homeProgram"></div>
+          </div>
+          <div>
+            <div class="profile-field-label">Hostel</div>
+            <div class="profile-field-value" id="homeHostel"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Middle White Action Card -->
+      <section class="action-card" aria-label="Select Meal">
+        <div class="action-heading">
+          Tap on the meal name to scan<br />and avail food.
+        </div>
+
+        <button type="button" class="rate-us-pill" id="homeRateBtn">
+          <svg class="rate-us-star" viewBox="0 0 24 24">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          <span class="rate-us-text">RATE US</span>
+        </button>
+
+        <div class="meal-grid">
+          <button type="button" class="meal-btn" data-meal="BreakFast">
+            <span>BreakFast</span>
+            <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg>
+          </button>
+          <button type="button" class="meal-btn" data-meal="Lunch">
+            <span>Lunch</span>
+            <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg>
+          </button>
+          <button type="button" class="meal-btn" data-meal="Dinner">
+            <span>Dinner</span>
+            <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg>
+          </button>
+          <button type="button" class="meal-btn" data-meal="Tea">
+            <span>Tea</span>
+            <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==================== SCREEN 2: CAMERA QR SCANNER ==================== -->
+    <section class="scanner-sheet" id="scannerSheet" aria-label="Scan Mess QR">
+      <div class="scanner-viewport">
+        <video id="cameraVideo" autoplay playsinline muted></video>
+
+        <!-- Realistic simulated fallback when camera is blocked/unavailable -->
+        <div class="camera-fallback" id="cameraFallback">
+          <div class="fallback-poster">
+            <div class="fallback-poster-title">Boys Hostel - 6</div>
+            <canvas class="fallback-poster-qr" id="fallbackQrCanvas" width="132" height="132"></canvas>
+            <div class="fallback-poster-note">
+              1. Carry your mobile phone along with you while entering mess at meal time.<br />
+              2. Scan QR Code to generate Meal Coupon.
+            </div>
+          </div>
+        </div>
+
+        <div class="scanner-vignette"></div>
+
+        <div class="scanner-frame-wrap">
+          <div class="scanner-green-box">
+            <div class="scanner-red-line"></div>
+          </div>
+        </div>
+
+        <button type="button" class="scanner-close-btn" id="scannerCloseBtn" aria-label="Close Scanner">
+          <svg viewBox="0 0 24 24">
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== LPU SPINNING ORANGE LOADER ==================== -->
+    <div class="lpu-loader-overlay" id="lpuLoader" aria-hidden="true">
+      <div class="lpu-spinner-badge">
+        <svg class="lpu-spinner-svg" viewBox="0 0 100 100">
+          <defs>
+            <clipPath id="lpuCircleClip">
+              <circle cx="50" cy="50" r="46" />
+            </clipPath>
+          </defs>
+          <g clip-path="url(#lpuCircleClip)">
+            <circle cx="50" cy="50" r="46" fill="#FFFFFF" />
+            <!-- LPU Sunburst Orange Stripes -->
+            <path d="M50,50 L50,0 A50,50 0 0,1 67,3 Z" fill="#F27A21" />
+            <path d="M50,50 L79,9 A50,50 0 0,1 91,22 Z" fill="#E86515" />
+            <path d="M50,50 L97,35 A50,50 0 0,1 100,52 Z" fill="#F27A21" />
+            <path d="M50,50 L96,67 A50,50 0 0,1 87,82 Z" fill="#E86515" />
+            <path d="M50,50 L75,93 A50,50 0 0,1 58,99 Z" fill="#F27A21" />
+            <path d="M50,50 L43,99 A50,50 0 0,1 26,94 Z" fill="#E86515" />
+            <path d="M50,50 L14,83 A50,50 0 0,1 4,68 Z" fill="#F27A21" />
+            <path d="M50,50 L1,52 A50,50 0 0,1 4,34 Z" fill="#E86515" />
+            <path d="M50,50 L11,21 A50,50 0 0,1 24,8 Z" fill="#F27A21" />
+            <path d="M50,50 L36,2 A50,50 0 0,1 47,0 Z" fill="#E86515" />
+            <!-- Lower wave ring accent -->
+            <path d="M4,62 Q30,78 50,64 T96,62 L100,100 L0,100 Z" fill="#D95312" opacity="0.22" />
+          </g>
+          <circle cx="50" cy="50" r="45.5" fill="none" stroke="#E86515" stroke-width="2" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- ==================== SCREEN 3: APPROVED RESULT ("Mess Pass") ==================== -->
+    <section class="pass-modal" id="passModal" aria-label="Mess Pass">
+      <header class="pass-header">
+        <div class="pass-drag-pill"></div>
+        <div class="pass-header-row">
+          <div class="pass-title">Mess Pass</div>
+          <button type="button" class="pass-close-btn" id="passCloseBtn" aria-label="Close Mess Pass">
+            <svg viewBox="0 0 24 24">
+              <line x1="5" y1="5" x2="19" y2="19"></line>
+              <line x1="19" y1="5" x2="5" y2="19"></line>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="pass-body">
+        <div class="pass-card">
+          <div class="countdown-badge" id="countdownBadge">30</div>
+
+          <div class="pass-top-grid">
+            <div class="pass-col">
+              <div class="framed-square">
+                <img id="passPhotoImg" alt="Student Portrait" />
+              </div>
+              <div class="pass-col-primary" id="passRegId"></div>
+              <div class="pass-col-secondary" id="passStudentName"></div>
+            </div>
+
+            <div class="pass-col">
+              <div class="framed-square">
+                <canvas id="passQrCanvas" width="198" height="198"></canvas>
+              </div>
+              <div class="pass-col-primary" id="passMealName">Dinner</div>
+              <div class="pass-col-secondary" id="passMessShort"></div>
+            </div>
+          </div>
+
+          <div class="pass-center-info">
+            <div class="pass-info-line" id="passProgram"></div>
+            <div class="pass-info-line" id="passAssignedMess"></div>
+          </div>
+
+          <div class="pass-datetime-row">
+            <span id="passDateText">Nov 22, 2026</span>
+            <span id="passTimeText">08:14 PM</span>
+          </div>
+
+          <div class="pass-status-block">
+            <div class="meal-approved-text">Meal Approved</div>
+            <button type="button" class="rate-us-pill" id="passRateBtn">
+              <svg class="rate-us-star" viewBox="0 0 24 24">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+              <span class="rate-us-text">RATE US</span>
+            </button>
+          </div>
+
+          <div class="accepted-brown-frame">
+            <div class="accepted-white-inner">
+              <div class="accepted-morph-pill" id="acceptedMorphPill">
+                <div class="accepted-inner-content">
+                  <div class="accepted-check-circle">
+                    <svg viewBox="0 0 24 24">
+                      <polyline points="4.5 12.5 9.5 17.5 19.5 7"></polyline>
+                    </svg>
+                  </div>
+                  <span class="accepted-word">ACCEPTED</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== HIDDEN PROFILE & MESS EDITOR MODAL ==================== -->
+    <div class="modal-backdrop" id="editorModal" aria-hidden="true">
+      <div class="editor-dialog" role="dialog" aria-labelledby="editorHeading">
+        <div class="editor-header">
+          <h3 id="editorHeading">Profile &amp; Mess Settings</h3>
+          <button type="button" class="editor-close" id="editorCloseBtn" aria-label="Close">&times;</button>
+        </div>
+
+        <div class="editor-body">
+          <div class="editor-photo-row">
+            <img id="editorPhotoPreview" class="editor-photo-preview" alt="Preview" />
+            <div>
+              <label for="photoUploadInput" class="upload-label-btn">Upload Custom Photo</label>
+              <input type="file" id="photoUploadInput" accept="image/*" style="display: none;" />
+              <div class="upload-hint">Auto-cropped &amp; saved locally in browser.</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputName">Student Name</label>
+            <input type="text" id="inputName" />
+          </div>
+          <div class="form-group">
+            <label for="inputRegId">Registration ID</label>
+            <input type="text" id="inputRegId" />
+          </div>
+          <div class="form-group">
+            <label for="inputFather">Father's Name</label>
+            <input type="text" id="inputFather" />
+          </div>
+          <div class="form-group">
+            <label for="inputMother">Mother's Name</label>
+            <input type="text" id="inputMother" />
+          </div>
+          <div class="form-group">
+            <label for="inputProgram">Program / Batch</label>
+            <input type="text" id="inputProgram" />
+          </div>
+          <div class="form-group">
+            <label for="inputHostel">Hostel &amp; Room</label>
+            <input type="text" id="inputHostel" />
+          </div>
+          <div class="form-group">
+            <label for="inputMess">Assigned Mess</label>
+            <input type="text" id="inputMess" />
+          </div>
+        </div>
+
+        <div class="editor-footer">
+          <button type="button" class="btn-secondary" id="resetDefaultBtn">Reset Default</button>
+          <button type="button" class="btn-primary" id="saveProfileBtn">Save Changes</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MEAL HISTORY MODAL ==================== -->
+    <div class="modal-backdrop" id="historyModal" aria-hidden="true">
+      <div class="editor-dialog" role="dialog" aria-labelledby="historyHeading">
+        <div class="editor-header">
+          <h3 id="historyHeading">Meal History</h3>
+          <button type="button" class="editor-close" id="historyCloseBtn" aria-label="Close">&times;</button>
+        </div>
+        <div class="editor-body" id="historyList"></div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const STORAGE_KEY = "lpu_mess_demo_profile_v1";
+      const HISTORY_KEY = "lpu_mess_demo_history_v1";
+
+      const EMBEDDED_DEFAULT_PHOTO = "data:image/jpeg;base64,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";
+
+      // Exact 33x33 QR matrix matching the reference Mess Pass
+      const BASE_QR_MATRIX = ["111111100111000100001100001111111", "100000101100010101011000001000001", "101110100010010101110100101011101", "101110101001011000001000001011101", "101110101111011001101000101011101", "100000100100101001101111101000001", "111111101010101010101010101111111", "000000001010110100110000100000000", "010111101010110110001100011011010", "011011001111010000111011011110001", "100100101010110101101101111100011", "111111011001011101000001111000111", "010000101111100101100011001100101", "001111010100010110001011111101011", "110111110001010100111110010000000", "001100011100011110010001100011110", "101110110110110100000010011010011", "110010011110100110011010000010100", "110110100000001111010101000000001", "100001000010011111100000001111110", "110000110010101100001000100001011", "100011000101011100010111111110110", "100011101011010001000101111110001", "101111000000010101100011000110100", "111100101001000001111001111110100", "000000001000010110010110100011110", "111111100010010111010110101010100", "100000101101101100010001100011110", "101110101100110010101011111111001", "101110101011100000101000010000101", "101110100101111000111001111011111", "100000101000011111011000111101111", "111111100001010100110001111011100"];
+
+      const DEFAULT_PROFILE = {
+        name: "Muhammed Illias Asharaf",
+        regId: "12605345",
+        father: "Asharaf Mayin Veettil (96893678464)",
+        mother: "Balkees Asharaf (7994947873)",
+        program: "P131:B.Tech. (Biotechnology)(2026)",
+        hostel: "Boys Hostel-06- A311-Bed C (Standard Air Conditioned 4 Seater)",
+        mess: "Mess-2 BH-6",
+        photo: EMBEDDED_DEFAULT_PHOTO
+      };
+
+      // DOM elements
+      const el = {
+        headerTitle: document.getElementById("headerTitle"),
+        backBtn: document.getElementById("backBtn"),
+        historyBtn: document.getElementById("historyBtn"),
+        homePhotoWrap: document.getElementById("homePhotoWrap"),
+        homePhotoImg: document.getElementById("homePhotoImg"),
+        homeNameId: document.getElementById("homeNameId"),
+        homeFather: document.getElementById("homeFather"),
+        homeMother: document.getElementById("homeMother"),
+        homeProgram: document.getElementById("homeProgram"),
+        homeHostel: document.getElementById("homeHostel"),
+        homeRateBtn: document.getElementById("homeRateBtn"),
+
+        scannerSheet: document.getElementById("scannerSheet"),
+        cameraVideo: document.getElementById("cameraVideo"),
+        cameraFallback: document.getElementById("cameraFallback"),
+        fallbackQrCanvas: document.getElementById("fallbackQrCanvas"),
+        scannerCloseBtn: document.getElementById("scannerCloseBtn"),
+        lpuLoader: document.getElementById("lpuLoader"),
+
+        passModal: document.getElementById("passModal"),
+        passCloseBtn: document.getElementById("passCloseBtn"),
+        countdownBadge: document.getElementById("countdownBadge"),
+        passPhotoImg: document.getElementById("passPhotoImg"),
+        passQrCanvas: document.getElementById("passQrCanvas"),
+        passRegId: document.getElementById("passRegId"),
+        passStudentName: document.getElementById("passStudentName"),
+        passMealName: document.getElementById("passMealName"),
+        passMessShort: document.getElementById("passMessShort"),
+        passProgram: document.getElementById("passProgram"),
+        passAssignedMess: document.getElementById("passAssignedMess"),
+        passDateText: document.getElementById("passDateText"),
+        passTimeText: document.getElementById("passTimeText"),
+        passRateBtn: document.getElementById("passRateBtn"),
+        acceptedMorphPill: document.getElementById("acceptedMorphPill"),
+
+        editorModal: document.getElementById("editorModal"),
+        editorCloseBtn: document.getElementById("editorCloseBtn"),
+        editorPhotoPreview: document.getElementById("editorPhotoPreview"),
+        photoUploadInput: document.getElementById("photoUploadInput"),
+        inputName: document.getElementById("inputName"),
+        inputRegId: document.getElementById("inputRegId"),
+        inputFather: document.getElementById("inputFather"),
+        inputMother: document.getElementById("inputMother"),
+        inputProgram: document.getElementById("inputProgram"),
+        inputHostel: document.getElementById("inputHostel"),
+        inputMess: document.getElementById("inputMess"),
+        resetDefaultBtn: document.getElementById("resetDefaultBtn"),
+        saveProfileBtn: document.getElementById("saveProfileBtn"),
+
+        historyModal: document.getElementById("historyModal"),
+        historyCloseBtn: document.getElementById("historyCloseBtn"),
+        historyList: document.getElementById("historyList"),
+        toast: document.getElementById("toast")
+      };
+
+      let profile = loadProfile();
+      let pendingPhotoData = profile.photo;
+      let activeStream = null;
+      let scanTimerId = null;
+      let loaderTimerId = null;
+      let countdownTimerId = null;
+      let toastTimerId = null;
+      let audioCtx = null;
+
+      // ==================== STORAGE HELPERS ====================
+      function loadProfile() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return { ...DEFAULT_PROFILE };
+          const parsed = JSON.parse(raw);
+          return { ...DEFAULT_PROFILE, ...parsed };
+        } catch (_) {
+          return { ...DEFAULT_PROFILE };
+        }
+      }
+
+      function saveProfileToStorage(data) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+          return true;
+        } catch (_) {
+          return false;
+        }
+      }
+
+      function loadHistory() {
+        try {
+          const raw = localStorage.getItem(HISTORY_KEY);
+          return raw ? JSON.parse(raw) : [];
+        } catch (_) {
+          return [];
+        }
+      }
+
+      function appendHistory(meal, dateStr, timeStr) {
+        const list = loadHistory();
+        list.unshift({ meal, mess: profile.mess, date: dateStr, time: timeStr });
+        if (list.length > 20) list.length = 20;
+        try {
+          localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
+        } catch (_) {}
+      }
+
+      // ==================== AUDIO: EXACT QR SCANNER BEEP ====================
+      function ensureAudioUnlocked() {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        if (!audioCtx) {
+          audioCtx = new AudioContextClass();
+        }
+        if (audioCtx.state === "suspended") {
+          audioCtx.resume().catch(function () {});
+        }
+        // Silent 1-sample ping inside user gesture guarantees iOS Safari unlock
+        try {
+          const buf = audioCtx.createBuffer(1, 1, 22050);
+          const src = audioCtx.createBufferSource();
+          src.buffer = buf;
+          src.connect(audioCtx.destination);
+          src.start(0);
+        } catch (_) {}
+      }
+
+      function playScanSuccessBeep() {
+        try {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContextClass) return;
+          if (!audioCtx) audioCtx = new AudioContextClass();
+          if (audioCtx.state === "suspended") {
+            audioCtx.resume().catch(function () {});
+          }
+
+          const now = audioCtx.currentTime;
+          // Crisp high-pitched scanner beep matching the reference video (~2550 Hz clean tone)
+          const oscMain = audioCtx.createOscillator();
+          const oscHarm = audioCtx.createOscillator();
+          const gainNode = audioCtx.createGain();
+          const harmGain = audioCtx.createGain();
+
+          oscMain.type = "sine";
+          oscMain.frequency.setValueAtTime(2560, now);
+
+          oscHarm.type = "triangle";
+          oscHarm.frequency.setValueAtTime(5120, now);
+          harmGain.gain.setValueAtTime(0.08, now);
+
+          gainNode.gain.setValueAtTime(0.0001, now);
+          gainNode.gain.exponentialRampToValueAtTime(0.32, now + 0.008);
+          gainNode.gain.setValueAtTime(0.30, now + 0.13);
+          gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.19);
+
+          oscMain.connect(gainNode);
+          oscHarm.connect(harmGain);
+          harmGain.connect(gainNode);
+          gainNode.connect(audioCtx.destination);
+
+          oscMain.start(now);
+          oscHarm.start(now);
+          oscMain.stop(now + 0.21);
+          oscHarm.stop(now + 0.21);
+        } catch (_) {}
+      }
+
+      // ==================== RENDERING ====================
+      function renderProfileUI() {
+        const photoSrc = profile.photo || EMBEDDED_DEFAULT_PHOTO;
+        el.homePhotoImg.src = photoSrc;
+        el.passPhotoImg.src = photoSrc;
+
+        el.homeNameId.textContent = profile.name + " " + profile.regId;
+        el.homeFather.textContent = profile.father;
+        el.homeMother.textContent = profile.mother;
+        el.homeProgram.textContent = profile.program;
+        el.homeHostel.textContent = profile.hostel;
+
+        el.passRegId.textContent = profile.regId;
+        el.passStudentName.textContent = profile.name;
+        el.passMessShort.textContent = profile.mess;
+        el.passProgram.textContent = profile.program;
+        el.passAssignedMess.textContent = "Your Assigned Mess - " + profile.mess;
+      }
+
+      function drawQrCanvas(canvas, seedText) {
+        const ctx = canvas.getContext("2d");
+        const size = canvas.width;
+        const n = BASE_QR_MATRIX.length;
+        const cell = size / n;
+
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, size, size);
+        ctx.fillStyle = "#000000";
+
+        // Keep exact reference pattern for default profile, subtle deterministic data bit variation if edited
+        let hash = 0;
+        const isDefault = seedText === (DEFAULT_PROFILE.regId + "|" + DEFAULT_PROFILE.mess + "|Dinner");
+        if (!isDefault) {
+          for (let i = 0; i < seedText.length; i++) {
+            hash = ((hash << 5) - hash + seedText.charCodeAt(i)) | 0;
+          }
+        }
+
+        for (let r = 0; r < n; r++) {
+          const row = BASE_QR_MATRIX[r];
+          for (let c = 0; c < n; c++) {
+            let bit = row.charCodeAt(c) === 49;
+            // Preserve finder patterns, timing patterns, and alignment pattern intact
+            const inFinder =
+              (r < 9 && c < 9) ||
+              (r < 9 && c >= n - 8) ||
+              (r >= n - 8 && c < 9);
+            const inAlign = r >= 24 && r <= 28 && c >= 24 && c <= 28;
+            const inTiming = r === 6 || c === 6;
+
+            if (!isDefault && !inFinder && !inAlign && !inTiming) {
+              const mix = ((r * 37 + c * 17) ^ hash) & 7;
+              if (mix === 0) bit = !bit;
+            }
+
+            if (bit) {
+              ctx.fillRect(Math.floor(c * cell), Math.floor(r * cell), Math.ceil(cell), Math.ceil(cell));
+            }
+          }
+        }
+      }
+
+      function formatLiveDateTime(dateObj) {
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const mon = months[dateObj.getMonth()];
+        const day = String(dateObj.getDate()).padStart(2, "0");
+        const year = dateObj.getFullYear();
+
+        let hours = dateObj.getHours();
+        const ampm = hours >= 12 ? "PM" : "AM";
+        hours = hours % 12;
+        if (hours === 0) hours = 12;
+        const hh = String(hours).padStart(2, "0");
+        const mm = String(dateObj.getMinutes()).padStart(2, "0");
+
+        return {
+          dateStr: mon + " " + day + ", " + year,
+          timeStr: hh + ":" + mm + " " + ampm
+        };
+      }
+
+      function showToast(msg) {
+        el.toast.textContent = msg;
+        el.toast.classList.add("show");
+        clearTimeout(toastTimerId);
+        toastTimerId = setTimeout(function () {
+          el.toast.classList.remove("show");
+        }, 2100);
+      }
+
+      // ==================== CAMERA & SCAN FLOW ====================
+      function stopCamera() {
+        if (activeStream) {
+          activeStream.getTracks().forEach(function (track) {
+            try { track.stop(); } catch (_) {}
+          });
+          activeStream = null;
+        }
+        el.cameraVideo.srcObject = null;
+        el.cameraVideo.style.display = "none";
+        el.cameraFallback.style.display = "flex";
+      }
+
+      function clearPendingTimers() {
+        if (scanTimerId) {
+          clearTimeout(scanTimerId);
+          scanTimerId = null;
+        }
+        if (loaderTimerId) {
+          clearTimeout(loaderTimerId);
+          loaderTimerId = null;
+        }
+      }
+
+      function openScannerForMeal(mealName) {
+        ensureAudioUnlocked();
+        clearPendingTimers();
+        stopCamera();
+
+        el.scannerSheet.classList.add("open");
+
+        // Request live rear camera; gracefully stay on simulated viewfinder if unavailable/denied
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices
+            .getUserMedia({
+              video: {
+                facingMode: { ideal: "environment" },
+                width: { ideal: 1280 },
+                height: { ideal: 720 }
+              },
+              audio: false
+            })
+            .then(function (stream) {
+              if (!el.scannerSheet.classList.contains("open")) {
+                stream.getTracks().forEach(function (t) { t.stop(); });
+                return;
+              }
+              activeStream = stream;
+              el.cameraVideo.srcObject = stream;
+              el.cameraVideo.style.display = "block";
+              el.cameraFallback.style.display = "none";
+              el.cameraVideo.play().catch(function () {});
+            })
+            .catch(function () {
+              el.cameraVideo.style.display = "none";
+              el.cameraFallback.style.display = "flex";
+            });
+        }
+
+        // No-fail 2.0-second auto-capture matching the video sequence
+        scanTimerId = setTimeout(function () {
+          completeScanSequence(mealName);
+        }, 2000);
+      }
+
+      function closeScanner() {
+        clearPendingTimers();
+        stopCamera();
+        el.scannerSheet.classList.remove("open");
+      }
+
+      function completeScanSequence(mealName) {
+        // 1. Play exact beep at QR capture moment
+        playScanSuccessBeep();
+
+        // 2. Dismiss camera sheet smoothly down
+        stopCamera();
+        el.scannerSheet.classList.remove("open");
+
+        // 3. Show LPU spinning orange loader over Home briefly, then slide up Mess Pass (matching video 00:12.5 - 00:13.25)
+        loaderTimerId = setTimeout(function () {
+          el.lpuLoader.classList.add("visible");
+
+          loaderTimerId = setTimeout(function () {
+            openMessPass(mealName);
+            setTimeout(function () {
+              el.lpuLoader.classList.remove("visible");
+            }, 240);
+          }, 580);
+        }, 240);
+      }
+
+      // ==================== SCREEN 3: MESS PASS ====================
+      function openMessPass(mealName) {
+        const now = new Date();
+        const dt = formatLiveDateTime(now);
+
+        el.passMealName.textContent = mealName;
+        el.passDateText.textContent = dt.dateStr;
+        el.passTimeText.textContent = dt.timeStr;
+        drawQrCanvas(el.passQrCanvas, profile.regId + "|" + profile.mess + "|" + mealName);
+        appendHistory(mealName, dt.dateStr, dt.timeStr);
+
+        // Restart morph animation cleanly from beginning
+        el.passModal.classList.remove("open");
+        void el.passModal.offsetWidth;
+        el.passModal.classList.add("open");
+
+        // Start 30-second countdown
+        clearInterval(countdownTimerId);
+        let remaining = 30;
+        el.countdownBadge.textContent = String(remaining);
+        countdownTimerId = setInterval(function () {
+          remaining -= 1;
+          if (remaining <= 0) {
+            closeMessPass();
+          } else {
+            el.countdownBadge.textContent = String(remaining);
+          }
+        }, 1000);
+      }
+
+      function closeMessPass() {
+        clearInterval(countdownTimerId);
+        countdownTimerId = null;
+        el.passModal.classList.remove("open");
+      }
+
+      // ==================== HIDDEN PROFILE EDITOR ====================
+      function openEditor() {
+        pendingPhotoData = profile.photo || EMBEDDED_DEFAULT_PHOTO;
+        el.editorPhotoPreview.src = pendingPhotoData;
+        el.inputName.value = profile.name;
+        el.inputRegId.value = profile.regId;
+        el.inputFather.value = profile.father;
+        el.inputMother.value = profile.mother;
+        el.inputProgram.value = profile.program;
+        el.inputHostel.value = profile.hostel;
+        el.inputMess.value = profile.mess;
+        el.photoUploadInput.value = "";
+        el.editorModal.classList.add("open");
+      }
+
+      function closeEditor() {
+        el.editorModal.classList.remove("open");
+      }
+
+      // Triple-tap on student profile photo
+      let photoTapCount = 0;
+      let photoTapTimer = null;
+      el.homePhotoWrap.addEventListener("click", function () {
+        photoTapCount += 1;
+        clearTimeout(photoTapTimer);
+        if (photoTapCount >= 3) {
+          photoTapCount = 0;
+          openEditor();
+          return;
+        }
+        photoTapTimer = setTimeout(function () {
+          photoTapCount = 0;
+        }, 650);
+      });
+
+      // Double-tap on "Mess Coupon" header title
+      let titleTapCount = 0;
+      let titleTapTimer = null;
+      el.headerTitle.addEventListener("click", function () {
+        titleTapCount += 1;
+        clearTimeout(titleTapTimer);
+        if (titleTapCount >= 2) {
+          titleTapCount = 0;
+          openEditor();
+          return;
+        }
+        titleTapTimer = setTimeout(function () {
+          titleTapCount = 0;
+        }, 420);
+      });
+
+      // Custom photo upload with center-square crop & compression for safe localStorage persistence
+      el.photoUploadInput.addEventListener("change", function (ev) {
+        const file = ev.target.files && ev.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const img = new Image();
+          img.onload = function () {
+            const canvas = document.createElement("canvas");
+            const targetSize = 320;
+            canvas.width = targetSize;
+            canvas.height = targetSize;
+            const ctx = canvas.getContext("2d");
+
+            const minSide = Math.min(img.width, img.height);
+            const sx = (img.width - minSide) / 2;
+            const sy = (img.height - minSide) * 0.25;
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillRect(0, 0, targetSize, targetSize);
+            ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, targetSize, targetSize);
+
+            pendingPhotoData = canvas.toDataURL("image/jpeg", 0.85);
+            el.editorPhotoPreview.src = pendingPhotoData;
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      el.saveProfileBtn.addEventListener("click", function () {
+        profile = {
+          name: el.inputName.value.trim() || DEFAULT_PROFILE.name,
+          regId: el.inputRegId.value.trim() || DEFAULT_PROFILE.regId,
+          father: el.inputFather.value.trim() || DEFAULT_PROFILE.father,
+          mother: el.inputMother.value.trim() || DEFAULT_PROFILE.mother,
+          program: el.inputProgram.value.trim() || DEFAULT_PROFILE.program,
+          hostel: el.inputHostel.value.trim() || DEFAULT_PROFILE.hostel,
+          mess: el.inputMess.value.trim() || DEFAULT_PROFILE.mess,
+          photo: pendingPhotoData || EMBEDDED_DEFAULT_PHOTO
+        };
+        saveProfileToStorage(profile);
+        renderProfileUI();
+        closeEditor();
+        showToast("Profile updated");
+      });
+
+      el.resetDefaultBtn.addEventListener("click", function () {
+        profile = { ...DEFAULT_PROFILE };
+        pendingPhotoData = EMBEDDED_DEFAULT_PHOTO;
+        try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+        renderProfileUI();
+        closeEditor();
+        showToast("Reset to default profile");
+      });
+
+      el.editorCloseBtn.addEventListener("click", closeEditor);
+      el.editorModal.addEventListener("click", function (e) {
+        if (e.target === el.editorModal) closeEditor();
+      });
+
+      // ==================== MEAL HISTORY & AUXILIARY EVENTS ====================
+      function openHistory() {
+        const items = loadHistory();
+        el.historyList.innerHTML = "";
+        if (!items.length) {
+          const empty = document.createElement("div");
+          empty.style.cssText = "text-align:center;color:#666;padding:20px 8px;font-size:13.5px;";
+          empty.textContent = "No meals scanned in this session yet.";
+          el.historyList.appendChild(empty);
+        } else {
+          items.forEach(function (item) {
+            const row = document.createElement("div");
+            row.className = "history-item";
+            row.innerHTML =
+              '<div><div class="history-meal"></div><div class="history-meta"></div></div>' +
+              '<span class="history-badge">Approved</span>';
+            row.querySelector(".history-meal").textContent = item.meal + " — " + item.mess;
+            row.querySelector(".history-meta").textContent = item.date + " • " + item.time;
+            el.historyList.appendChild(row);
+          });
+        }
+        el.historyModal.classList.add("open");
+      }
+
+      el.historyBtn.addEventListener("click", openHistory);
+      el.historyCloseBtn.addEventListener("click", function () {
+        el.historyModal.classList.remove("open");
+      });
+      el.historyModal.addEventListener("click", function (e) {
+        if (e.target === el.historyModal) el.historyModal.classList.remove("open");
+      });
+
+      el.backBtn.addEventListener("click", function () {
+        showToast("LPU Touch Dashboard");
+      });
+
+      [el.homeRateBtn, el.passRateBtn].forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          showToast("Thanks for rating Mess Services!");
+        });
+      });
+
+      // Wire all 4 meal buttons
+      document.querySelectorAll(".meal-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const meal = btn.getAttribute("data-meal") || "Dinner";
+          openScannerForMeal(meal);
+        });
+      });
+
+      el.scannerCloseBtn.addEventListener("click", closeScanner);
+      el.passCloseBtn.addEventListener("click", closeMessPass);
+
+      // Initialize UI on load
+      renderProfileUI();
+      drawQrCanvas(el.fallbackQrCanvas, DEFAULT_PROFILE.regId + "|" + DEFAULT_PROFILE.mess + "|Dinner");
+      drawQrCanvas(el.passQrCanvas, DEFAULT_PROFILE.regId + "|" + DEFAULT_PROFILE.mess + "|Dinner");
+    })();
+  </script>
+</body>
+</html>
